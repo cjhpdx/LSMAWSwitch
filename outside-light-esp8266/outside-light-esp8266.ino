@@ -197,4 +197,5 @@ void loop() {
 // http://arduino.sundh.com/2013/02/photoresistor-controlling-led/
 // https://community.thinger.io/t/esp8266-analog-read/37
 // https://learn.adafruit.com/adafruit-feather-huzzah-esp8266/using-arduino-ide
-
+// https://www.youtube.com/watch?v=PgsH43Tpqjc
+// https://raw.githubusercontent.com/ItKindaWorks/ESP8266/master/Home%20Automation/Part%201/ESP8266_SimpleMQTT/ESP8266_SimpleMQTT.ino
