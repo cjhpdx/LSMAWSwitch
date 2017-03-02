@@ -11,9 +11,9 @@
 
 
 //EDIT THESE LINES TO MATCH YOUR SETUP
-#define MQTT_SERVER "172.16.42.8"
-const char* ssid = "LOLG";
-const char* password = "pwd4guest";
+#define MQTT_SERVER "-----"
+const char* ssid = "---";
+const char* password = "----";
 
 //LED on ESP8266 GPIO2
 const int lightPin = 16;
