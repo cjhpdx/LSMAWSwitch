@@ -9,6 +9,7 @@ int calibrationTime = 30;
 int reportFrequency = 1000;
 unsigned long t_time;
 unsigned long DayNightTransition_time;
+unsigned long motionDetDelay_time;
 char message_buff[100];
 char DayNightStatus_buff[100];
 char LightDetected_buff[100];
@@ -27,9 +28,9 @@ char MovementDetected_buff[100];
 
 
 //Wifi network config
-#define MQTT_SERVER "10.0.1.24"
-const char* ssid = "LOL";
-const char* password = "townsend";
+#define MQTT_SERVER "----"
+const char* ssid = "----";
+const char* password = "----";
 
 char* garageDoorOutsideLight1 = "/garage/outside/light1";
 char* garageLight1Threashold = "/garage/outside/light1/threashold";
@@ -432,9 +433,12 @@ void loop() {
 
   // MUST delay to allow ESP8266 WIFI functions to run
   delay(100);
-  
-  // main program loop starts here
-  sw.checkForMotion();
+
+  if (millis() > (motionDetDelay_time + 10000)) {
+    // main program loop starts here
+    sw.checkForMotion();
+    motionDetDelay_time = millis();
+  }
 
   if ( sw.remoteOn ) {
     sw.turnOnTheLight();
@@ -447,7 +451,7 @@ void loop() {
   if (millis() > (t_time + 1000)) {
     String message =  String( "[" + sw.todStatus + "] " + "Light:" + sw.lightStatus );
     message +=  String( " Timer:" + String(sw.timer, DEC) + " MovementDetected:" + sw.motionDetectedStr );
-    message +=  String( " LightDetected:" + String(sw.lightDetected, DEC) + " RemoteOn:" + sw.remoteOnStr );
+    message +=  String( " LightDetected:" + String(sw.lightDetected, DEC) + " RemoteOn + " + sw.remoteOnStr );
     message.toCharArray(message_buff, message.length()+1);
     client.publish("/garage/LsMawSwitch/output", message_buff);
     
